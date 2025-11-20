@@ -3,26 +3,62 @@ package com.example.androidsprintcomposeapp.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.Typography
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.example.androidsprintcomposeapp.R
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+val AppTypography = Typography(
+    bodyLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp,
+    ),
+    headlineLarge = TextStyle(
+        fontSize = 28.sp,
+        fontFamily = FontFamily(Font(R.font.roboto_condensed_black)),
+    ),
+    headlineMedium = TextStyle(
+        fontSize = 18.sp,
+        fontFamily = FontFamily(Font(R.font.roboto_condensed_italic)),
+    )
 )
+private val DarkColorScheme = darkColorScheme(
+    primary = mainTitleColorDark,
+    secondary = PurpleGrey80,
+    tertiary = Pink80,
+
+    background = backgroundDark,
+    surface = backgroundDark,
+    onBackground = mainTitleColorDark,
+
+    )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = mainTitleColor,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
 
-    /* Other default colors to override
+    background = background,
+    surface = background,
+    onBackground = mainTitleColor,
+
+/* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
     onPrimary = Color.White,
@@ -33,6 +69,9 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+val ColorScheme.subtitle: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) subtitleGrayColorDark else subtitleGrayColor
 @Composable
 fun AndroidSprintComposeAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -52,7 +91,7 @@ fun AndroidSprintComposeAppTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
 }

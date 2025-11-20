@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +39,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androidsprintcomposeapp.ui.theme.mainBlackColor
+import com.example.androidsprintcomposeapp.ui.theme.AndroidSprintComposeAppTheme
+import com.example.androidsprintcomposeapp.ui.theme.mainTitleColor
+import com.example.androidsprintcomposeapp.ui.theme.subtitle
 import com.example.androidsprintcomposeapp.ui.theme.subtitleGrayColor
 
 class MainActivity : ComponentActivity() {
@@ -46,25 +49,27 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Scaffold(
-                content = { innerPadding: PaddingValues ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-//                            .background(Color.LightGray)
-                            .fillMaxSize()
-                        ,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        StudyAppHeader()
-                        Spacer(modifier = Modifier.height(30.dp))
-                        MainNavButtons()
-                        Spacer(modifier = Modifier.height(30.dp))
-                        StartImageButton()
+            AndroidSprintComposeAppTheme{
+                Scaffold(
+                    content = { innerPadding: PaddingValues ->
+                        Column(
+                            modifier = Modifier
+                                .padding(innerPadding)
+//                              .background(Color.LightGray)
+                                .fillMaxSize()
+                            ,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            StudyAppHeader()
+                            Spacer(modifier = Modifier.height(30.dp))
+                            MainNavButtons()
+                            Spacer(modifier = Modifier.height(30.dp))
+                            StartImageButton()
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }
@@ -75,15 +80,12 @@ fun StudyAppHeader() {
     ) {
         Text(
             text = "Android text",
-            fontSize = 28.sp,
-            color = mainBlackColor,
-            fontFamily = FontFamily(Font(R.font.roboto_condensed_black)),
+            style = MaterialTheme.typography.headlineLarge,
         )
         Text(
             text = "Android JetPack Compose learn",
-            fontSize = 18.sp,
-            color = subtitleGrayColor,
-            fontFamily = FontFamily(Font(R.font.roboto_condensed_italic)),
+            color = MaterialTheme.colorScheme.subtitle,
+            style = MaterialTheme.typography.headlineMedium,
         )
     }
 }
@@ -147,28 +149,44 @@ fun StartImageButton(){
                 )
         )
         Text(
+            modifier = Modifier.padding(0.dp, 30.dp, 0.dp, 0.dp),
             text = "Rocket flight",
-            fontSize = 15.sp,
-            color = mainBlackColor,
-            fontFamily = FontFamily(Font(R.font.roboto_condensed_black)),
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.subtitle,
         )
     }
 }
 
-@Preview(showBackground = true)
 @Composable
+@Preview(showBackground = true)
 private fun StudyAppHeaderPreview(){
     StudyAppHeader()
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun MainNavButtonsPreview(){
+@Preview(showBackground = true)
+private fun MainNavButtonsPreviewLight(){
+    AndroidSprintComposeAppTheme(
+        darkTheme = false
+    ) {
+
+    }
     MainNavButtons()
 }
 
-@Preview(showBackground = true)
 @Composable
+@Preview(showBackground = true)
+private fun MainNavButtonsPreviewDart(){
+    AndroidSprintComposeAppTheme(
+        darkTheme = true
+    ) {
+
+    }
+    MainNavButtons()
+}
+
+@Composable
+@Preview(showBackground = true)
 private fun StartImageButtonPreview(){
     StartImageButton()
 }
