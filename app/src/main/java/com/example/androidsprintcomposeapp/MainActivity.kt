@@ -27,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,150 +45,34 @@ import com.example.androidsprintcomposeapp.ui.theme.AndroidSprintComposeAppTheme
 import com.example.androidsprintcomposeapp.ui.theme.mainTitleColor
 import com.example.androidsprintcomposeapp.ui.theme.subtitle
 import com.example.androidsprintcomposeapp.ui.theme.subtitleGrayColor
+import kotlinx.coroutines.runInterruptible
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AndroidSprintComposeAppTheme{
-                Scaffold(
-                    content = { innerPadding: PaddingValues ->
-                        Column(
-                            modifier = Modifier
-                                .padding(innerPadding)
-//                              .background(Color.LightGray)
-                                .fillMaxSize()
-                            ,
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            StudyAppHeader()
-                            Spacer(modifier = Modifier.height(30.dp))
-                            MainNavButtons()
-                            Spacer(modifier = Modifier.height(30.dp))
-                            StartImageButton()
-                        }
-                    }
-                )
-            }
-        }
-    }
-}
-@Composable
-fun StudyAppHeader() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Android text",
-            style = MaterialTheme.typography.headlineLarge,
-        )
-        Text(
-            text = "Android JetPack Compose learn",
-            color = MaterialTheme.colorScheme.subtitle,
-            style = MaterialTheme.typography.headlineMedium,
-        )
-    }
-}
-
-@Composable
-fun MainNavButtons(){
-    Row {
-        Button(
-            onClick = {},
-            shape = RoundedCornerShape(13.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 5.dp)
-        ) {
-            Text(
-                "Home",
-                fontFamily = FontFamily(Font(R.font.roboto_condensed_italic)),
-                )
-        }
-        Button(
-            onClick = {},
-            shape = RoundedCornerShape(13.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 5.dp)
-        ) {
-            Text(
-                "Login",
-                fontFamily = FontFamily(Font(R.font.roboto_condensed_italic)),
-                )
-        }
-        Button(
-            onClick = {},
-            shape = RoundedCornerShape(13.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 5.dp)
-        ) {
-            Text(
-                "Register",
-                fontFamily = FontFamily(Font(R.font.roboto_condensed_italic)),
-                )
+            println("setContent")
+            BananaText()
         }
     }
 }
 
 @Composable
-fun StartImageButton(){
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(R.drawable.rocket),
-            contentDescription = "",
-            modifier = Modifier
-                .size(140.dp)
-                .shadow(3.dp, CircleShape)
-                .clip(CircleShape)
-                .clickable(
-                    onClick = {}
-                )
-        )
-        Text(
-            modifier = Modifier.padding(0.dp, 30.dp, 0.dp, 0.dp),
-            text = "Rocket flight",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.subtitle,
-        )
+fun BananaText(){
+    println("Banana button starts")
+
+    val count = remember {
+        mutableStateOf(0)
     }
-}
 
-@Composable
-@Preview(showBackground = true)
-private fun StudyAppHeaderPreview(){
-    StudyAppHeader()
-}
+    println("Count is declared")
 
-@Composable
-@Preview(showBackground = true)
-private fun MainNavButtonsPreviewLight(){
-    AndroidSprintComposeAppTheme(
-        darkTheme = false
-    ) {
-
-    }
-    MainNavButtons()
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun MainNavButtonsPreviewDart(){
-    AndroidSprintComposeAppTheme(
-        darkTheme = true
-    ) {
-
-    }
-    MainNavButtons()
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun StartImageButtonPreview(){
-    StartImageButton()
+    Text(
+        "Count is: ${count.value}",
+        modifier = Modifier.clickable{
+            count.value++
+        },
+        style = TextStyle(fontSize = 44.sp)
+    )
 }
