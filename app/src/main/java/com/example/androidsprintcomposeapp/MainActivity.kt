@@ -38,10 +38,23 @@ fun BananaText(){
     println("Count is declared")
 
     Text(
-        "Count is: ${count}",
+        "Banana text is: ${count}",
         modifier = Modifier.clickable{
             count++
         },
+        style = TextStyle(fontSize = 50.sp)
+    )
+
+    val appleCount = count.toString()
+    AppleText(text = appleCount)
+
+}
+
+@Composable
+fun AppleText(text: String){
+    println("Apple text is: $text")
+    Text(
+        "Apple text is: ${text}",
         style = TextStyle(fontSize = 44.sp)
     )
 }
